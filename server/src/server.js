@@ -1,15 +1,18 @@
 import express from "express";
+import dotenv from "dotenv";
+import connectDB from "./database/connect-database.js";
+
+dotenv.configDotenv();
+
+connectDB();
 
 const app = express();
 
-app.use((req, res, next) => {
-  console.log("This is in the middleware");
-  next();
-});
-
-app.get("/", (req, res, next) => {
+app.get("/", (req, res) => {
   console.log("Request received on root path");
-  res.send("Hello World From the server running on Mark's machine!");
+  res.json({
+    message: "Silence is golden",
+  });
 });
 
 app.listen(3005, () => {
