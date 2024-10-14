@@ -1,5 +1,6 @@
 export const registerUser = (req, res) => {
-  res.send("POST register endpoint");
+  // console.log({ request: req });
+  res.json({});
 };
 
 export const loginUser = (req, res) => {
