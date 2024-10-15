@@ -17,6 +17,8 @@ const midd = (req, res, next) => {
 
 app.use(midd);
 
+app.use(express.json());
+
 // ROUTES
 app.get("/", (req, res) => {
   console.log("Request received on root path");
