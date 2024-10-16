@@ -1,4 +1,5 @@
 import { User } from "../database/Models/User.js";
+import bcrypt from "bcryptjs";
 
 // async... await
 // then...catch
@@ -14,11 +15,13 @@ export const registerUser = async (req, res) => {
       username,
       email,
       phone,
-      password,
+      password: hashedPassword,
     });
 
     res.json(user);
   } catch (error) {
+    console.log({ MongooseError: error });
+
     res.status(500).json({
       message: "Something went wrong",
     });
