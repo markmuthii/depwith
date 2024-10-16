@@ -15,9 +15,9 @@ const midd = (req, res, next) => {
   next();
 };
 
-app.use(midd);
-
 app.use(express.json());
+
+app.use(midd);
 
 // ROUTES
 app.get("/", (req, res) => {
