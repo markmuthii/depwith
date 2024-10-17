@@ -18,7 +18,7 @@ export const registerUser = async (req, res) => {
       password: hashedPassword,
     });
 
-    res.json(user);
+    res.status(201).json(user);
   } catch (error) {
     console.log({ MongooseError: error });
 
@@ -28,6 +28,37 @@ export const registerUser = async (req, res) => {
   }
 };
 
-export const loginUser = (req, res) => {
-  res.send("Get login endpoint");
+export const loginUser = async (req, res) => {
+  const { username, password } = req.body;
+
+  const user = await User.findOne({
+    username,
+  });
+
+  if (!user) {
+    res.status(400).json({
+      message: "Incorrect credentials - username",
+    });
+    return;
+  }
+
+  const passwordsMatch = await bcrypt.compare(password, user.password);
+  // const passwordsMatch2 = bcrypt.compareSync(password, user.password);
+
+  // 12345
+  // $2a$10$7qDwKWKPCgH9b8ODV6kU8exUthqcEQ0GsMvRwpk/mLwJMz2FVU31q
+  if (!passwordsMatch) {
+    res.status(400).json({
+      message: "Incorrect credentials - password",
+    });
+    return;
+  }
+
+  // Login is okay
+
+  res.cookie(process.env.AUTH_COOKIE_NAME, JSON.stringify(user.toObject()));
+
+  res.json({
+    message: "Login Successful",
+  });
 };

@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import connectDB from "./database/connect-database.js";
 import { v1Router } from "./routes/v1/index.js";
 import { v2Router } from "./routes/v2/index.js";
+import cookieParser from "cookie-parser";
 
 dotenv.configDotenv();
 
@@ -10,17 +11,39 @@ connectDB();
 
 const app = express();
 
-const midd = (req, res, next) => {
-  console.log("This is middleware");
-  next();
-};
+// const midd = (req, res, next) => {
+//   const cookieString = req.headers.cookie;
 
+//   const cookieArr = cookieString.split("; ");
+
+//   console.log(cookieArr);
+
+//   const cookieObj = {};
+
+//   cookieArr.forEach((cookie) => {
+//     const [cookieName, cookieValue] = cookie.split("=");
+
+//     cookieObj[cookieName] = cookieValue;
+
+//     // cookies.push(cookieObj);
+//   });
+
+//   console.log({ cookiesInMiddleware: cookieObj });
+
+//   req.cookies = cookieObj;
+
+//   next();
+// };
+
+app.use(cookieParser());
 app.use(express.json());
 
-app.use(midd);
+// app.use(midd);
 
 // ROUTES
 app.get("/", (req, res) => {
+  console.log({ CookiesInHome: req.cookies });
+
   console.log("Request received on root path");
   res.json({
     message: "Silence is golden",

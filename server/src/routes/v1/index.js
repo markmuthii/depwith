@@ -5,6 +5,10 @@ const v1Router = Router();
 
 // /api/v1
 v1Router.get("/", (req, res) => {
+  const user = JSON.parse(req.cookies.depwith);
+
+  console.log({ User: user });
+
   res.send("Hello from v1");
 });
 
