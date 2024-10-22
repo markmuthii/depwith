@@ -1,5 +1,6 @@
 import { User } from "../database/Models/User.js";
 import bcrypt from "bcryptjs";
+import { generateJwtToken } from "../utils/generate-jwt-token.js";
 
 // async... await
 // then...catch
@@ -37,7 +38,7 @@ export const loginUser = async (req, res) => {
 
   if (!user) {
     res.status(400).json({
-      message: "Incorrect credentials - username",
+      message: "Incorrect credentials",
     });
     return;
   }
@@ -49,14 +50,13 @@ export const loginUser = async (req, res) => {
   // $2a$10$7qDwKWKPCgH9b8ODV6kU8exUthqcEQ0GsMvRwpk/mLwJMz2FVU31q
   if (!passwordsMatch) {
     res.status(400).json({
-      message: "Incorrect credentials - password",
+      message: "Incorrect credentials",
     });
     return;
   }
 
   // Login is okay
-
-  res.cookie(process.env.AUTH_COOKIE_NAME, JSON.stringify(user.toObject()));
+  generateJwtToken(res, { _id: user._id });
 
   res.json({
     message: "Login Successful",
