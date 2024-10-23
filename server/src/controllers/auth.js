@@ -62,3 +62,9 @@ export const loginUser = async (req, res) => {
     message: "Login Successful",
   });
 };
+
+export const logoutUser = async (req, res) => {
+  res.clearCookie(process.env.AUTH_COOKIE_NAME).json({
+    message: "Logout Successful",
+  });
+};

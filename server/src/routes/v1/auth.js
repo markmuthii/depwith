@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { loginUser, registerUser } from "../../controllers/auth.js";
+import { loginUser, logoutUser, registerUser } from "../../controllers/auth.js";
 import {
   validateUserLogin,
   validateUserRegistration,
@@ -12,5 +12,7 @@ authRouter.post("/register", validateUserRegistration, registerUser);
 
 // /api/v1/auth/login
 authRouter.post("/login", validateUserLogin, loginUser);
+
+authRouter.post("/logout", logoutUser);
 
 export { authRouter };
