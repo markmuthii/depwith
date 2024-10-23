@@ -1,6 +1,11 @@
 import { Router } from "express";
-import { authRouter } from "./auth.js";
+
+// middleware imports
 import { requiresAuthentication } from "../../middleware/auth.js";
+
+// router imports
+import { authRouter } from "./auth.js";
+import { balanceRouter } from "./balance.js";
 
 const v1Router = Router();
 
@@ -16,23 +21,26 @@ v1Router.use("/auth", authRouter);
 // PRIVATE ROUTES (require a user to be logged in in order to access them)
 v1Router.use(requiresAuthentication); // This middleware protects ALL routes after it
 
+// /api/v1/balance
+v1Router.use("/balance", balanceRouter);
+
 v1Router.get("/protected", (req, res) => {
   res.json({
     message: "This is a protected route",
   });
 });
 
-v1Router.get("/protected2", (req, res) => {
-  res.json({
-    message: "This is a protected route",
-  });
-});
+// v1Router.get("/protected2", (req, res) => {
+//   res.json({
+//     message: "This is a protected route",
+//   });
+// });
 
-v1Router.get("/protected3", (req, res) => {
-  res.json({
-    message: "This is a protected route",
-  });
-});
+// v1Router.get("/protected3", (req, res) => {
+//   res.json({
+//     message: "This is a protected route",
+//   });
+// });
 
 // This is how you'd add authorization
 // v1Router.use("/admin", isAdmin, adminRouter);
