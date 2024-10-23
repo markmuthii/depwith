@@ -1,6 +1,7 @@
 import { User } from "../database/Models/User.js";
 import bcrypt from "bcryptjs";
 import { generateJwtToken } from "../utils/generate-jwt-token.js";
+import { Balance } from "../database/Models/Balance.js";
 
 // async... await
 // then...catch
@@ -19,7 +20,13 @@ export const registerUser = async (req, res) => {
       password: hashedPassword,
     });
 
-    res.status(201).json(user);
+    await Balance.create({
+      user: user._id,
+    });
+
+    res.status(201).json({
+      message: "User created successfully",
+    });
   } catch (error) {
     console.log({ MongooseError: error });
 
