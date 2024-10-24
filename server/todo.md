@@ -1,7 +1,7 @@
-- [ ] User can create a deposit transation
-- [ ] User can create a withdrawal transation
-- [ ] User can see the balance of his/her account
-- [ ] User can see the history of his/her transactions
-- [ ] User balance updates with each transaction
-  - [ ] For deposits, the balance increases
-  - [ ] For withdrawals, the balance decreases
+- [x] User can create a deposit transation
+- [x] User can create a withdrawal transation
+- [x] User can see the balance of his/her account
+- [x] User can see the history of his/her transactions
+- [x] User balance updates with each transaction
+  - [x] For deposits, the balance increases
+  - [x] For withdrawals, the balance decreases
