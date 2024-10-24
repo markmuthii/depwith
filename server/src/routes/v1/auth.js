@@ -13,6 +13,6 @@ authRouter.post("/register", validateUserRegistration, registerUser);
 // /api/v1/auth/login
 authRouter.post("/login", validateUserLogin, loginUser);
 
-authRouter.post("/logout", logoutUser);
+authRouter.delete("/logout", logoutUser);
 
 export { authRouter };
