@@ -6,6 +6,7 @@ import { requiresAuthentication } from "../../middleware/auth.js";
 // router imports
 import { authRouter } from "./auth.js";
 import { balanceRouter } from "./balance.js";
+import { transactionRouter } from "./transaction.js";
 
 const v1Router = Router();
 
@@ -23,6 +24,9 @@ v1Router.use(requiresAuthentication); // This middleware protects ALL routes aft
 
 // /api/v1/balance
 v1Router.use("/balance", balanceRouter);
+
+// /api/v1/transaction
+v1Router.use("/transaction", transactionRouter);
 
 v1Router.get("/protected", (req, res) => {
   res.json({
