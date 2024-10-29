@@ -1,7 +1,6 @@
-import { User } from "../database/Models/User.js";
 import bcrypt from "bcryptjs";
+import { Balance, User } from "../database/Models/index.js";
 import { generateJwtToken } from "../utils/generate-jwt-token.js";
-import { Balance } from "../database/Models/Balance.js";
 
 // async... await
 // then...catch
