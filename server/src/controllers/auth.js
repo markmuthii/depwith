@@ -44,6 +44,7 @@ export const loginUser = async (req, res) => {
 
   if (!user) {
     res.status(400).json({
+      success: false,
       message: "Incorrect credentials",
     });
     return;
@@ -56,6 +57,7 @@ export const loginUser = async (req, res) => {
   // $2a$10$7qDwKWKPCgH9b8ODV6kU8exUthqcEQ0GsMvRwpk/mLwJMz2FVU31q
   if (!passwordsMatch) {
     res.status(400).json({
+      success: false,
       message: "Incorrect credentials",
     });
     return;
@@ -65,12 +67,14 @@ export const loginUser = async (req, res) => {
   generateJwtToken(res, { _id: user._id });
 
   res.json({
+    success: true,
     message: "Login Successful",
   });
 };
 
 export const logoutUser = async (req, res) => {
   res.clearCookie(process.env.AUTH_COOKIE_NAME).json({
+    success: true,
     message: "Logout Successful",
   });
 };

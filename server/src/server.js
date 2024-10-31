@@ -4,12 +4,20 @@ import connectDB from "./database/connect-database.js";
 import { v1Router } from "./routes/v1/index.js";
 import { v2Router } from "./routes/v2/index.js";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 dotenv.configDotenv();
 
 connectDB();
 
 const app = express();
+
+const corsOptions = {
+  origin: "http://localhost:5173",
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 // const midd = (req, res, next) => {
 //   const cookieString = req.headers.cookie;

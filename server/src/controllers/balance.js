@@ -10,11 +10,11 @@ export const getUserBalance = async (req, res) => {
     //     userId: "" // ID of the user we want to get the balance of
     //   }
     // }
-    const { userId: loggedInUser } = req;
-    const { userId: userWeAreInterestedIn } = req.params;
+    const { userId: userWeAreInterestedIn } = req;
 
     if (!isValidObjectId(userWeAreInterestedIn)) {
       return res.status(400).json({
+        success: false,
         message: "Deformed ID Passed",
       });
     }
@@ -23,15 +23,18 @@ export const getUserBalance = async (req, res) => {
 
     if (!userBalance) {
       return res.status(400).json({
+        success: false,
         message: "User with that ID does not exist",
       });
     }
 
     res.json({
+      success: true,
       balance: userBalance.balance, // IF there is a userBalance.balance (it is defined), then use that. If not, then 0
     });
   } catch (error) {
     res.status(500).json({
+      success: false,
       message: "Something went wrong",
     });
   }

@@ -38,19 +38,21 @@ export const createTransaction = async (req, res) => {
 
       if (amount < 100) {
         return res.status(StatusCodes.BAD_REQUEST).json({
+          success: false,
           message: "Amount is less than the allowed minimum of 100",
         });
       }
 
       if (amount > 100000) {
         return res.status(StatusCodes.BAD_REQUEST).json({
+          success: false,
           message: "Amount is more than the allowed maximum of 100000",
         });
       }
 
       // if type is deposit, increase the logged in user's balance by the amount
       // userBalanceDoc.balance = userBalanceDoc.balance + amount;
-      userBalanceDoc.balance += amount;
+      userBalanceDoc.balance += parseInt(amount);
 
       // TODO: Introduce transactions to deal with concurrency and incomplete processes
       // OP 1
@@ -68,6 +70,7 @@ export const createTransaction = async (req, res) => {
         transactionDoc.toObject();
 
       return res.status(StatusCodes.OK).json({
+        success: true,
         balance: userBalanceDoc.balance,
         transaction,
       });
@@ -77,12 +80,13 @@ export const createTransaction = async (req, res) => {
       if (userBalance < amount) {
         // if it is not, deny the request
         return res.status(StatusCodes.BAD_REQUEST).json({
+          success: false,
           message: "Not enough balance",
         });
       }
 
       // if it is, deduct the amount from the balance
-      userBalanceDoc.balance -= amount;
+      userBalanceDoc.balance -= parseInt(amount);
 
       await userBalanceDoc.save();
 
@@ -98,16 +102,22 @@ export const createTransaction = async (req, res) => {
         transactionDoc.toObject();
 
       return res.status(StatusCodes.OK).json({
+        success: true,
         balance: userBalanceDoc.balance,
         transaction,
       });
     } else {
       // Not a permitted type, respond with error
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        success: false,
+        message: "Invalid Transaction type",
+      });
     }
   } catch (error) {
     console.log({ TransactionError: error });
 
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
       message: "Something went wrong while processing your request.",
     });
   }
@@ -120,5 +130,5 @@ export const getUserTransactions = async (req, res) => {
     user: userId,
   });
 
-  return res.status(StatusCodes.OK).json({ transactions });
+  return res.status(StatusCodes.OK).json({ success: true, transactions });
 };
