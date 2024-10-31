@@ -8,6 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Transaction } from "@/lib/types";
 
 const transactions = [
   {
@@ -78,10 +79,16 @@ const transactions = [
   },
 ];
 
-const TransactionsTable = () => {
+const TransactionsTable = ({
+  transactions,
+}: {
+  transactions: Transaction[];
+}) => {
   return (
     <Table>
-      <TableCaption>Your past transactions</TableCaption>
+      {transactions.length > 0 && (
+        <TableCaption>Your past transactions</TableCaption>
+      )}
       <TableHeader>
         <TableRow>
           <TableHead className="w-[100px]">#</TableHead>
@@ -91,14 +98,24 @@ const TransactionsTable = () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {transactions.map((transaction, i) => (
-          <TableRow key={i}>
-            <TableCell className="font-medium">{i + 1}</TableCell>
-            <TableCell>{transaction.transaction_type}</TableCell>
-            <TableCell>{transaction.amount}</TableCell>
-            <TableCell className="text-right">{transaction.date}</TableCell>
+        {transactions.length > 0 ? (
+          transactions.map((transaction, i) => (
+            <TableRow key={i}>
+              <TableCell className="font-medium">{i + 1}</TableCell>
+              <TableCell>{transaction.transaction_type}</TableCell>
+              <TableCell>{transaction.amount}</TableCell>
+              <TableCell className="text-right">
+                {transaction.createdAt}
+              </TableCell>
+            </TableRow>
+          ))
+        ) : (
+          <TableRow>
+            <TableCell colSpan={4} className="text-center">
+              No transactions found
+            </TableCell>
           </TableRow>
-        ))}
+        )}
       </TableBody>
       {/* <TableFooter>
         <TableRow>
