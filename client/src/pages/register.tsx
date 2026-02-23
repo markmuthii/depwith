@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import { API_BASE_URL } from "@/lib/constants";
 
 type RegisterPageProps = {
   handleUserRegister: () => void;
@@ -43,7 +44,7 @@ const RegisterPage = ({ handleUserRegister }: RegisterPageProps) => {
     // Send the data to the server
     const data = { username, email, phone, password };
 
-    fetch("http://localhost:3005/api/v1/auth/register", {
+    fetch(`${API_BASE_URL}/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

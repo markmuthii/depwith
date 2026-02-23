@@ -2,6 +2,7 @@ import { CenterContent } from "@/components/center-content";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { API_BASE_URL } from "@/lib/constants";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -25,7 +26,7 @@ const LoginPage = ({ handleLoginClick }: LoginPageProps) => {
     // Send the data to the server
     const data = { username, password };
 
-    fetch("http://localhost:3005/api/v1/auth/login", {
+    fetch(`${API_BASE_URL}/api/v1/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

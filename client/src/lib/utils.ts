@@ -1,6 +1,7 @@
 import { BalanceData, Transaction, TransactionData } from "@/lib/types";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { API_BASE_URL } from "./constants";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -29,7 +30,7 @@ export const createTransaction = async (data: {
   };
 
   try {
-    const response = await fetch("http://localhost:3005/api/v1/transaction", {
+    const response = await fetch(`${API_BASE_URL}/api/v1/transaction`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,7 +51,7 @@ export const getTransactions = async () => {
   };
 
   try {
-    const response = await fetch("http://localhost:3005/api/v1/transaction", {
+    const response = await fetch(`${API_BASE_URL}/api/v1/transaction`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -71,7 +72,7 @@ export const getBalance = async () => {
     success: false,
   };
   try {
-    const response = await fetch("http://localhost:3005/api/v1/balance", {
+    const response = await fetch(`${API_BASE_URL}/api/v1/balance`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

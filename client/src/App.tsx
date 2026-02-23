@@ -4,6 +4,7 @@ import { RegisterPage } from "@/pages/register";
 import { UserDashboard } from "@/pages/user-dashboard";
 import { useEffect, useState } from "react";
 import { toast, Toaster } from "sonner";
+import { API_BASE_URL } from "./lib/constants";
 
 function App() {
   const [page, setPage] = useState("dashboard");
@@ -15,7 +16,7 @@ function App() {
   };
 
   const handleLogout = () => {
-    fetch("http://localhost:3005/api/v1/auth/logout", {
+    fetch(`${API_BASE_URL}/api/v1/auth/logout`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
