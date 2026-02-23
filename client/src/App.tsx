@@ -32,6 +32,8 @@ function App() {
         toast.success("Logout successful");
       })
       .catch((err) => {
+        console.log(err);
+
         toast.error("Error logging you out");
       });
   };
