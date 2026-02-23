@@ -44,7 +44,7 @@ const RegisterPage = ({ handleUserRegister }: RegisterPageProps) => {
     // Send the data to the server
     const data = { username, email, phone, password };
 
-    fetch(`${API_BASE_URL}/auth/register`, {
+    fetch(`${API_BASE_URL}/api/v1/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
